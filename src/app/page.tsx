@@ -34,11 +34,11 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <section className="mx-auto grid max-w-6xl gap-12 px-6 py-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:py-20">
           <div>
             <h1 className="font-serif-display text-5xl font-light leading-[1.1] tracking-tight text-[var(--color-ink)] sm:text-6xl">
-              Your <span className="text-[var(--color-gold)]">Academic Record</span>, in
-              One Secure Place.
+              Your <span className="text-[var(--color-gold)]">academic record</span>, in
+              one secure place.
             </h1>
             <p className="mt-6 max-w-md text-base text-[var(--color-text)]/75">
               Register for your exams, check your results, and access study

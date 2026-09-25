@@ -1,9 +1,6 @@
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Registration", href: "/signup" },
-  { label: "Check Results", href: "/results" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -12,10 +9,19 @@ const navLinks = [
 export default function Header() {
   return (
     <header className="border-b border-[var(--color-ink)]/10">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+        {/* Mobile: circular initials badge */}
         <Link
           href="/"
-          className="font-serif-display text-lg font-medium tracking-tight text-[var(--color-ink)]"
+          className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] font-serif-display text-sm font-bold text-[var(--color-parchment)] shadow-md shadow-black/40 ring-1 ring-white/10 lg:hidden"
+        >
+        
+        </Link>
+
+        {/* Larger screens: full name */}
+        <Link
+          href="/"
+          className="hidden font-serif-display text-lg font-medium tracking-tight text-[var(--color-ink)] lg:block"
         >
           Overcomers Education Centre
         </Link>
@@ -35,15 +41,9 @@ export default function Header() {
         <div className="flex items-center gap-3 text-sm">
           <Link
             href="/login"
-            className="text-[var(--color-ink)] underline decoration-[var(--color-gold)] decoration-2 underline-offset-4"
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
             className="rounded-sm bg-[var(--color-gold)] px-4 py-2 font-medium text-[var(--color-parchment)] transition-colors hover:bg-[var(--color-gold)]/90"
           >
-            Sign Up
+            Login
           </Link>
         </div>
       </div>

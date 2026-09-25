@@ -1,24 +1,37 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
 
-    // TODO: replace with real Supabase Auth call once credentials are set up.
-    // e.g. await supabase.auth.signInWithPassword({ email, password })
-    setTimeout(() => {
+    try {
+      // TODO: replace this block with a real Supabase Auth call once
+      // credentials are set up, e.g.:
+      // const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      // if (authError) throw new Error(authError.message);
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      throw new Error("Login isn't connected yet — Supabase setup is still pending.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+      return;
+    } finally {
       setIsSubmitting(false);
-      setError("Login isn't connected yet — Supabase setup is still pending.");
-    }, 600);
+    }
+
+    // Runs automatically once the block above succeeds instead of throwing —
+    // no changes needed here when Supabase goes live.
+    router.push("/student/dashboard");
   }
 
   return (

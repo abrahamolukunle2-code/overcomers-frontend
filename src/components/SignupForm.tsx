@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const examTypes = ["WAEC", "NECO", "JAMB", "GCE", "NABTEB"];
@@ -8,13 +9,14 @@ const currentYear = new Date().getFullYear();
 const examYears = [currentYear, currentYear + 1, currentYear + 2];
 
 export default function SignupForm() {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
 
@@ -28,12 +30,27 @@ export default function SignupForm() {
     }
 
     setIsSubmitting(true);
-    // TODO: replace with real Supabase Auth call once credentials are set up.
-    // e.g. await supabase.auth.signUp({ email, password, options: { data: { full_name, phone, exam_type, exam_year } } })
-    setTimeout(() => {
+
+    try {
+      // TODO: replace this block with a real Supabase Auth call once
+      // credentials are set up, e.g.:
+      // const { error: authError } = await supabase.auth.signUp({
+      //   email, password,
+      //   options: { data: { full_name, phone, exam_type, exam_year } },
+      // });
+      // if (authError) throw new Error(authError.message);
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      throw new Error("Sign up isn't connected yet — Supabase setup is still pending.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+      return;
+    } finally {
       setIsSubmitting(false);
-      setError("Sign up isn't connected yet — Supabase setup is still pending.");
-    }, 600);
+    }
+
+    // Runs automatically once the block above succeeds instead of throwing —
+    // sends the new student to Login to sign in with their new account.
+    router.push("/login");
   }
 
   const inputClass =

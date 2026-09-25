@@ -6,7 +6,7 @@ import LoginForm from "@/components/LoginForm";
 export default function LoginPage() {
   return (
     <div className="relative flex min-h-screen flex-col">
-      {/* Faint full-page background photo */}
+      {/* Faint full-page background picture */}
       <Image
         src="/student-photo.jpg"
         alt=""

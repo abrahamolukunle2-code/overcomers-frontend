@@ -2,32 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { studentNavItems } from "./nav-items";
 
-const navItems = [
-  { label: "Dashboard", href: "/student/dashboard" },
-  { label: "Profile", href: "/student/profile" },
-  { label: "Examination", href: "/student/examinations" },
-  { label: "Results", href: "/student/results" },
-  { label: "Certificates", href: "/student/certificates" },
-  { label: "Payments", href: "/student/payments" },
-  { label: "Assignment", href: "/student/assignments" },
-  { label: "Materials", href: "/student/materials" },
-  { label: "Timetable", href: "/student/timetable" },
-];
-
+// Desktop only. On mobile, the same links live in the header dropdown menu.
 export default function StudentSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full shrink-0 border-white/10 bg-[var(--color-forest)] md:w-60 md:border-r">
-      <nav className="flex gap-1 overflow-x-auto p-3 md:flex-col md:overflow-visible md:p-4">
-        {navItems.map((item) => {
+    <aside className="hidden w-60 shrink-0 border-r border-white/10 bg-[var(--color-forest)] md:block">
+      <nav className="flex flex-col gap-1 p-4">
+        {studentNavItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`whitespace-nowrap rounded-lg px-4 py-2.5 text-sm transition-colors ${
+              className={`rounded-lg px-4 py-2.5 text-sm transition-colors ${
                 isActive
                   ? "bg-[var(--color-gold)] font-medium text-black"
                   : "text-[var(--color-text)]/80 hover:bg-white/5 hover:text-[var(--color-ink)]"
@@ -39,7 +29,7 @@ export default function StudentSidebar() {
         })}
         <Link
           href="/login"
-          className="mt-2 whitespace-nowrap rounded-lg px-4 py-2.5 text-sm text-red-300 transition-colors hover:bg-red-500/10 md:mt-4"
+          className="mt-4 rounded-lg px-4 py-2.5 text-sm text-red-300 transition-colors hover:bg-red-500/10"
         >
           Logout
         </Link>

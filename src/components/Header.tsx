@@ -13,7 +13,7 @@ export default function Header() {
         {/* Mobile: circular initials badge */}
         <Link
           href="/"
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] font-serif-display text-base font-bold text-[var(--color-parchment)] shadow-md shadow-black/40 ring-1 ring-white/10 lg:hidden"
+          className="flex h-12 w-13 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] font-serif-display text-base font-bold text-[var(--color-parchment)] shadow-md shadow-black/40 ring-1 ring-white/10 lg:hidden"
         >
           OEC
         </Link>

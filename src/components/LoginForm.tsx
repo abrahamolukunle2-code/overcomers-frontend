@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { testCredentials } from "@/lib/mock-student";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -15,13 +16,27 @@ export default function LoginForm() {
     setError(null);
     setIsSubmitting(true);
 
+    const formData = new FormData(e.currentTarget);
+    const identifier = String(formData.get("identifier") || "").trim().toLowerCase();
+    const password = String(formData.get("password") || "");
+
     try {
-      // TODO: replace this block with a real Supabase Auth call once
-      // credentials are set up, e.g.:
-      // const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-      // if (authError) throw new Error(authError.message);
       await new Promise((resolve) => setTimeout(resolve, 600));
-      throw new Error("Login isn't connected yet — Supabase setup is still pending.");
+
+      // Test-credentials shortcut, so the dashboard can be previewed before
+      // Supabase Auth is wired up. Remove this block once it's connected.
+      if (
+        identifier === testCredentials.email &&
+        password === testCredentials.password
+      ) {
+        // falls through to the redirect below
+      } else {
+        // TODO: replace this block with a real Supabase Auth call once
+        // credentials are set up, e.g.:
+        // const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+        // if (authError) throw new Error(authError.message);
+        throw new Error("Login isn't connected yet — Supabase setup is still pending.");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
       return;
@@ -122,6 +137,11 @@ export default function LoginForm() {
           </Link>
         </p>
       </form>
+
+      {/* Test credentials — remove once Supabase Auth is wired up */}
+      <p className="mt-5 text-center text-xs text-white/25">
+        Test login: {testCredentials.email} / {testCredentials.password}
+      </p>
     </div>
   );
 }

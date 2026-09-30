@@ -1,5 +1,12 @@
 // Temporary mock data. Once Supabase is wired up, this will be replaced by a
 // real fetch (e.g. a service function in src/services/students.ts).
+
+// Test login credentials, for previewing the dashboard before Supabase is
+// wired up. Remove this once real Supabase Auth is in place.
+export const testCredentials = {
+  email: "student@test.com",
+  password: "test1234",
+};
 export const mockStudent = {
   firstName: "Chidinma",
   middleName: "Ada",

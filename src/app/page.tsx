@@ -36,13 +36,14 @@ export default function Home() {
         {/* Hero */}
         <section className="mx-auto grid max-w-6xl gap-12 px-6 py-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:py-20">
           <div>
-            <h1 className="font-serif-display text-5xl font-light leading-[1.1] tracking-tight text-[var(--color-ink)] sm:text-6xl">
-              Your <span className="text-[var(--color-gold)]">academic record</span>, in
-              one secure place.
+            <h1 className="font-serif-display text-5xl font-semibold leading-[1.1] tracking-tight text-[var(--color-ink)] sm:text-6xl">
+              Overcomers{" "}
+              <span className="text-[var(--color-gold)]">Education Centre</span>
             </h1>
             <p className="mt-6 max-w-md text-base text-[var(--color-text)]/75">
-              Register for your exams, check your results, and access study
-              resources — without a single trip to the office.
+              Your trusted centre for CBT exam registration, NYSC support,
+              international exams, and professional skills training — all in
+              one place.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">

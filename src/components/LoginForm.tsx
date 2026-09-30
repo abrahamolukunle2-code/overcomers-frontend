@@ -35,7 +35,7 @@ export default function LoginForm() {
         // credentials are set up, e.g.:
         // const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
         // if (authError) throw new Error(authError.message);
-        throw new Error("Login isn't connected yet — Supabase setup is still pending.");
+        throw new Error("Invalid email or password. Please try again.");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");

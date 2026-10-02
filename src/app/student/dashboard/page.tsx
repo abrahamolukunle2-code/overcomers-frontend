@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { mockStudent, mockDashboardStats } from "@/lib/mock-student";
 
 const statCards = [
@@ -35,21 +34,6 @@ export default function StudentDashboardPage() {
             </p>
           </div>
         ))}
-      </div>
-
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Link
-          href="/student/results"
-          className="rounded-lg bg-[var(--color-gold)] px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-[var(--color-gold)]/90"
-        >
-          Upload Result
-        </Link>
-        <Link
-          href="/student/assignments"
-          className="rounded-lg border border-white/15 px-5 py-2.5 text-sm text-[var(--color-ink)] transition-colors hover:bg-white/5"
-        >
-          View Assignment
-        </Link>
       </div>
     </div>
   );

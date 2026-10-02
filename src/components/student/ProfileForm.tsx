@@ -36,6 +36,37 @@ export default function ProfileForm() {
       onSubmit={handleSubmit}
       className="rounded-2xl border border-white/10 bg-[var(--color-forest)] p-6 sm:p-8"
     >
+      <div className="mb-8 flex flex-col items-center gap-3 border-b border-white/10 pb-8">
+        <label
+          htmlFor="photo"
+          className="group relative flex h-28 w-28 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-white/20 bg-black/30 transition-colors hover:border-[var(--color-gold)]"
+        >
+          {photoPreview ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={photoPreview}
+              alt="Passport photo preview"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <span className="px-2 text-center text-xs text-white/40 group-hover:text-[var(--color-gold)]">
+              Add Photo
+            </span>
+          )}
+          <input
+            id="photo"
+            name="photo"
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="hidden"
+          />
+        </label>
+        <p className="text-xs font-medium text-[var(--color-text)]/70">
+          Passport/Photo *
+        </p>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="firstName" className={labelClass}>
@@ -168,32 +199,11 @@ export default function ProfileForm() {
           <input id="stateOfOrigin" name="stateOfOrigin" className={inputClass} />
         </div>
 
-        <div>
+        <div className="sm:col-span-2">
           <label htmlFor="lga" className={labelClass}>
             LGA
           </label>
           <input id="lga" name="lga" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="photo" className={labelClass}>
-            Passport/Photo *
-          </label>
-          <input
-            id="photo"
-            name="photo"
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="mt-2 w-full text-sm text-[var(--color-text)]/70 file:mr-3 file:rounded-lg file:border-0 file:bg-[var(--color-gold)] file:px-4 file:py-2 file:text-sm file:font-medium file:text-black"
-          />
-          {photoPreview && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={photoPreview}
-              alt="Passport photo preview"
-              className="mt-3 h-32 w-32 rounded-lg border border-white/15 object-cover"
-            />
-          )}
         </div>
 
         <div>

@@ -3,8 +3,8 @@ import { mockStudent, mockDashboardStats } from "@/lib/mock-student";
 
 const statCards = [
   { label: "Exams", value: mockDashboardStats.exams },
-  { label: "Results", value: `${mockDashboardStats.results} Img` },
-  { label: "Certificates", value: `${mockDashboardStats.certificates} Img` },
+  { label: "Results", value: mockDashboardStats.results },
+  { label: "Certificates", value: mockDashboardStats.certificates },
   { label: "Fees", value: mockDashboardStats.feesStatus },
 ];
 
@@ -43,12 +43,6 @@ export default function StudentDashboardPage() {
           className="rounded-lg bg-[var(--color-gold)] px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-[var(--color-gold)]/90"
         >
           Upload Result
-        </Link>
-        <Link
-          href="/student/certificates"
-          className="rounded-lg border border-white/15 px-5 py-2.5 text-sm text-[var(--color-ink)] transition-colors hover:bg-white/5"
-        >
-          Upload Certificate
         </Link>
         <Link
           href="/student/assignments"

@@ -4,10 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const examTypes = ["WAEC", "NECO", "JAMB", "GCE", "NABTEB"];
-const currentYear = new Date().getFullYear();
-const examYears = [currentYear, currentYear + 1, currentYear + 2];
-
 export default function SignupForm() {
   const router = useRouter();
   const [password, setPassword] = useState("");
@@ -36,7 +32,7 @@ export default function SignupForm() {
       // credentials are set up, e.g.:
       // const { error: authError } = await supabase.auth.signUp({
       //   email, password,
-      //   options: { data: { full_name, phone, exam_type, exam_year } },
+      //   options: { data: { full_name, phone } },
       // });
       // if (authError) throw new Error(authError.message);
       await new Promise((resolve) => setTimeout(resolve, 600));
@@ -108,47 +104,6 @@ export default function SignupForm() {
             autoComplete="email"
             className={inputClass}
           />
-        </div>
-
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div>
-            <label htmlFor="examType" className={labelClass}>
-              Exam Type *
-            </label>
-            <select id="examType" name="examType" required className={inputClass}>
-              <option value="" disabled defaultValue="" className="bg-[var(--color-forest)] text-[var(--color-ink)]">
-                Select exam type
-              </option>
-              {examTypes.map((type) => (
-                <option
-                  key={type}
-                  value={type}
-                  className="bg-[var(--color-forest)] text-[var(--color-ink)]"
-                >
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="examYear" className={labelClass}>
-              Exam Year *
-            </label>
-            <select id="examYear" name="examYear" required className={inputClass}>
-              <option value="" disabled defaultValue="" className="bg-[var(--color-forest)] text-[var(--color-ink)]">
-                Select year
-              </option>
-              {examYears.map((year) => (
-                <option
-                  key={year}
-                  value={year}
-                  className="bg-[var(--color-forest)] text-[var(--color-ink)]"
-                >
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">

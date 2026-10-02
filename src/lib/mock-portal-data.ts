@@ -5,10 +5,6 @@ export const mockResults = [
   { id: "1", examBody: "WAEC", examYear: "2025", label: "WAEC 2025" },
 ];
 
-export const mockCertificates = [
-  { id: "1", name: "Birth Certificate" },
-];
-
 export const mockAssignments = [
   { id: "1", title: "Maths Assignment", subject: "Mathematics", status: "Submitted" as const },
   { id: "2", title: "English Essay", subject: "English", status: "Pending" as const },

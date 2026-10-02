@@ -54,24 +54,12 @@ export default function Home() {
                 Register Now
               </Link>
               <Link
-                href="/results"
+                href="/about"
                 className="rounded-sm border border-[var(--color-ink)] px-6 py-3 text-sm text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)]/5"
               >
-                Check Results
+                About Us
               </Link>
             </div>
-
-            <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[var(--color-text)]/70">
-              <div className="flex items-center gap-2">
-                <span aria-hidden>🔒</span> Secure &amp; reliable
-              </div>
-              <div className="flex items-center gap-2">
-                <span aria-hidden>⚡</span> Fast access
-              </div>
-              <div className="flex items-center gap-2">
-                <span aria-hidden>👥</span> Built for students
-              </div>
-            </dl>
           </div>
 
           {/* Floating framed photo with soft glow, ready to hold the real image */}

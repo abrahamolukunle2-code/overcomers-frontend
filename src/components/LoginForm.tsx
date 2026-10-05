@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { testCredentials } from "@/lib/mock-student";
+import { adminTestCredentials } from "@/lib/mock-admin";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -23,13 +24,21 @@ export default function LoginForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 600));
 
-      // Test-credentials shortcut, so the dashboard can be previewed before
-      // Supabase Auth is wired up. Remove this block once it's connected.
+      // Test-credentials shortcut, so either dashboard can be previewed
+      // before Supabase Auth is wired up. Remove this block once it's
+      // connected, along with the two destination branches below.
+      let destination: string;
+
       if (
         identifier === testCredentials.email &&
         password === testCredentials.password
       ) {
-        // falls through to the redirect below
+        destination = "/student/dashboard";
+      } else if (
+        identifier === adminTestCredentials.email &&
+        password === adminTestCredentials.password
+      ) {
+        destination = "/admin/dashboard";
       } else {
         // TODO: replace this block with a real Supabase Auth call once
         // credentials are set up, e.g.:
@@ -37,16 +46,14 @@ export default function LoginForm() {
         // if (authError) throw new Error(authError.message);
         throw new Error("Invalid email or password. Please try again.");
       }
+
+      router.push(destination);
+      return;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
-      return;
     } finally {
       setIsSubmitting(false);
     }
-
-    // Runs automatically once the block above succeeds instead of throwing —
-    // no changes needed here when Supabase goes live.
-    router.push("/student/dashboard");
   }
 
   return (
@@ -139,9 +146,14 @@ export default function LoginForm() {
       </form>
 
       {/* Test credentials — remove once Supabase Auth is wired up */}
-      <p className="mt-5 text-center text-xs text-white/25">
-        Test login: {testCredentials.email} / {testCredentials.password}
-      </p>
+      <div className="mt-5 text-center text-xs text-white/25">
+        <p>
+          Student: {testCredentials.email} / {testCredentials.password}
+        </p>
+        <p>
+          Admin: {adminTestCredentials.email} / {adminTestCredentials.password}
+        </p>
+      </div>
     </div>
   );
 }

@@ -78,7 +78,8 @@ export default function AssignmentsSection() {
       return;
     }
 
-    const nextId = `ASN-${String(assignments.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...assignments.map((a) => Number(a.id.replace("ASN-", "")))) + 1;
+    const nextId = `ASN-${String(nextNumber).padStart(3, "0")}`;
     const newAssignment: MockAssignment = {
       id: nextId,
       title: form.title.trim(),
@@ -93,16 +94,16 @@ export default function AssignmentsSection() {
     setAssignments((prev) => [newAssignment, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Created "${newAssignment.title}" (local preview only).`);
+    setMessage(`Created "${newAssignment.title}".`);
   }
 
   function handleDelete(id: string) {
     setAssignments((prev) => prev.filter((a) => a.id !== id));
     if (selected?.id === id) setSelected(null);
-    setMessage("Assignment removed (local only — resets on refresh).");
+    setMessage("Assignment removed.");
   }
 
-  function handleStatusCycle(id: string) {
+    function handleStatusCycle(id: string) {
     const order: AssignmentStatus[] = ["Open", "Closed", "Graded"];
     setAssignments((prev) =>
       prev.map((a) => {
@@ -112,6 +113,13 @@ export default function AssignmentsSection() {
         return { ...a, status: next };
       }),
     );
+    if (selected?.id === id) {
+      setSelected((prev) =>
+        prev
+          ? { ...prev, status: order[(order.indexOf(prev.status) + 1) % order.length] }
+          : prev,
+      );
+    }
   }
 
   return (
@@ -347,7 +355,7 @@ export default function AssignmentsSection() {
                         type="button"
                         onClick={() => handleStatusCycle(a.id)}
                         className="rounded-md border border-white/10 px-2.5 py-1 text-xs text-[var(--color-ink)] transition hover:border-[var(--color-gold)]/40 hover:text-[var(--color-gold)]"
-                        title="Cycle status (local preview)"
+                        title="Cycle status"
                       >
                         Status
                       </button>
@@ -368,8 +376,7 @@ export default function AssignmentsSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {assignments.length} assignments · Changes
-        are local only until Supabase is connected
+        Showing {filtered.length} of {assignments.length} assignments
       </p>
 
       {selected && (

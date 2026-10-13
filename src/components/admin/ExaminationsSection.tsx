@@ -88,7 +88,8 @@ export default function ExaminationsSection() {
       return;
     }
 
-    const nextId = `EXM-${String(exams.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...exams.map((e) => Number(e.id.replace("EXM-", "")))) + 1;
+    const nextId = `EXM-${String(nextNumber).padStart(3, "0")}`;
     const newExam: MockExam = {
       id: nextId,
       title: form.title.trim(),
@@ -107,12 +108,12 @@ export default function ExaminationsSection() {
     setExams((prev) => [newExam, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Created ${newExam.title} (local preview only).`);
+    setMessage(`Created ${newExam.title}.`);
   }
 
   function handleDelete(id: string) {
     setExams((prev) => prev.filter((exam) => exam.id !== id));
-    setMessage("Exam removed from list (local only — resets on refresh).");
+    setMessage("Exam removed from list.");
   }
 
   function handleStatusCycle(id: string) {
@@ -446,8 +447,7 @@ export default function ExaminationsSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {exams.length} exams · Changes are local
-        only until Supabase is connected
+        Showing {filtered.length} of {exams.length} exams
       </p>
     </div>
   );

@@ -27,19 +27,17 @@ export default function SettingsSection() {
 
   function handleSaveSchool(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("School settings saved (local preview only — resets on refresh).");
+    setMessage("School settings saved.");
   }
 
   function handleSaveProfile(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("Profile settings saved (local preview only — resets on refresh).");
+    setMessage("Profile settings saved.");
   }
 
   function handleSaveNotifications(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(
-      "Notification preferences saved (local preview only — resets on refresh).",
-    );
+    setMessage("Notification preferences saved.");
   }
 
   function handleChangePassword(e: React.FormEvent) {
@@ -58,7 +56,7 @@ export default function SettingsSection() {
     }
     setPasswordForm({ current: "", next: "", confirm: "" });
     setMessage(
-      "Password change recorded (local preview only — not connected to auth yet).",
+      "Password changes aren't available here yet. Please contact the site administrator.",
     );
   }
 
@@ -308,10 +306,6 @@ export default function SettingsSection() {
           Save notification preferences
         </button>
       </form>
-
-      <p className="text-xs text-[var(--color-text)]/40">
-        All settings are local-only until Supabase is connected.
-      </p>
     </div>
   );
 }

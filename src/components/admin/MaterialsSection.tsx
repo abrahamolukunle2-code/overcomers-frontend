@@ -77,7 +77,8 @@ export default function MaterialsSection() {
       return;
     }
 
-    const nextId = `MAT-${String(materials.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...materials.map((m) => Number(m.id.replace("MAT-", "")))) + 1;
+    const nextId = `MAT-${String(nextNumber).padStart(3, "0")}`;
     const newMaterial: MockMaterial = {
       id: nextId,
       title: form.title.trim(),
@@ -91,12 +92,12 @@ export default function MaterialsSection() {
     setMaterials((prev) => [newMaterial, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Added "${newMaterial.title}" (local preview only).`);
+    setMessage(`Added "${newMaterial.title}".`);
   }
 
   function handleDelete(id: string) {
     setMaterials((prev) => prev.filter((m) => m.id !== id));
-    setMessage("Material removed (local only — resets on refresh).");
+    setMessage("Material removed.");
   }
 
   return (

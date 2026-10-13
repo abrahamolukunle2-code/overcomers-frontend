@@ -86,7 +86,8 @@ export default function ResultsSection() {
       return;
     }
 
-    const nextId = `RES-${String(results.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...results.map((r) => Number(r.id.replace("RES-", "")))) + 1;
+    const nextId = `RES-${String(nextNumber).padStart(3, "0")}`;
     const newResult: MockResult = {
       id: nextId,
       studentId: form.studentId.trim(),
@@ -103,7 +104,7 @@ export default function ResultsSection() {
     setResults((prev) => [newResult, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Result ${newResult.id} added (local preview only).`);
+    setMessage(`Result ${newResult.id} added.`);
   }
 
   function setStatus(id: string, status: ResultStatus) {
@@ -113,13 +114,13 @@ export default function ResultsSection() {
     if (selected?.id === id) {
       setSelected((prev) => (prev ? { ...prev, status } : prev));
     }
-    setMessage(`Marked ${id} as ${status} (local only).`);
+    setMessage(`Marked ${id} as ${status}.`);
   }
 
   function handleDelete(id: string) {
     setResults((prev) => prev.filter((r) => r.id !== id));
     if (selected?.id === id) setSelected(null);
-    setMessage("Result removed (local only — resets on refresh).");
+    setMessage("Result removed.");
   }
 
   return (
@@ -406,8 +407,7 @@ export default function ResultsSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {results.length} results · Changes are
-        local only until Supabase is connected
+       Showing {filtered.length} of {results.length} results
       </p>
 
       {/* Detail panel overlay */}

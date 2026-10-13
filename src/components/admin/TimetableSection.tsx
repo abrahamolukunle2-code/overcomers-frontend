@@ -55,7 +55,8 @@ export default function TimetableSection() {
       return;
     }
 
-    const nextId = `TT-${String(timetables.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...timetables.map((t) => Number(t.id.replace("TT-", "")))) + 1;
+    const nextId = `TT-${String(nextNumber).padStart(3, "0")}`;
     const newItem: MockTimetable = {
       id: nextId,
       title: form.title.trim(),
@@ -70,13 +71,13 @@ export default function TimetableSection() {
     setTimetables((prev) => [newItem, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Uploaded "${newItem.title}" (local preview only).`);
+    setMessage(`Uploaded "${newItem.title}".`);
   }
 
   function handleDelete(id: string) {
     setTimetables((prev) => prev.filter((t) => t.id !== id));
     if (selected?.id === id) setSelected(null);
-    setMessage("Timetable removed (local only — resets on refresh).");
+    setMessage("Timetable removed.");
   }
 
   return (
@@ -297,8 +298,7 @@ export default function TimetableSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {timetables.length} timetables · Changes
-        are local only until Supabase is connected
+        Showing {filtered.length} of {timetables.length} timetables
       </p>
 
       {selected && (

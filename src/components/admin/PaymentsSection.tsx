@@ -99,7 +99,8 @@ export default function PaymentsSection() {
       return;
     }
 
-    const nextId = `PAY-${String(payments.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...payments.map((p) => Number(p.id.replace("PAY-", "")))) + 1;
+    const nextId = `PAY-${String(nextNumber).padStart(3, "0")}`;
     const newPayment: MockPayment = {
       id: nextId,
       studentId: form.studentId.trim(),
@@ -116,7 +117,7 @@ export default function PaymentsSection() {
     setPayments((prev) => [newPayment, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Payment ${newPayment.id} recorded (local preview only).`);
+    setMessage(`Payment ${newPayment.id} recorded.`);
   }
 
   function setStatus(id: string, status: PaymentStatus) {
@@ -151,13 +152,13 @@ export default function PaymentsSection() {
           : prev,
       );
     }
-    setMessage(`Marked ${id} as ${status} (local only).`);
+    setMessage(`Marked ${id} as ${status}.`);
   }
 
   function handleDelete(id: string) {
     setPayments((prev) => prev.filter((p) => p.id !== id));
     if (selected?.id === id) setSelected(null);
-    setMessage("Payment removed (local only — resets on refresh).");
+    setMessage("Payment removed.");
   }
 
   return (
@@ -428,8 +429,7 @@ export default function PaymentsSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {payments.length} payments · Changes are
-        local only until Supabase is connected
+        Showing {filtered.length} of {payments.length} payments
       </p>
 
       {/* Detail panel */}

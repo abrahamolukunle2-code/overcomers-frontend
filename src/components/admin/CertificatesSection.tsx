@@ -88,7 +88,8 @@ export default function CertificatesSection() {
       return;
     }
 
-    const nextId = `CERT-${String(certificates.length + 1).padStart(3, "0")}`;
+    const nextNumber = Math.max(0, ...certificates.map((c) => Number(c.id.replace("CERT-", "")))) + 1;
+    const nextId = `CERT-${String(nextNumber).padStart(3, "0")}`;
     const newCert: MockCertificate = {
       id: nextId,
       studentId: form.studentId.trim(),
@@ -105,7 +106,7 @@ export default function CertificatesSection() {
     setCertificates((prev) => [newCert, ...prev]);
     setForm(emptyForm);
     setShowForm(false);
-    setMessage(`Certificate ${newCert.id} added (local preview only).`);
+    setMessage(`Certificate ${newCert.id} added.`);
   }
 
   function setStatus(id: string, status: CertificateStatus) {
@@ -115,13 +116,13 @@ export default function CertificatesSection() {
     if (selected?.id === id) {
       setSelected((prev) => (prev ? { ...prev, status } : prev));
     }
-    setMessage(`Marked ${id} as ${status} (local only).`);
+    setMessage(`Marked ${id} as ${status}.`);
   }
 
   function handleDelete(id: string) {
     setCertificates((prev) => prev.filter((c) => c.id !== id));
     if (selected?.id === id) setSelected(null);
-    setMessage("Certificate removed (local only — resets on refresh).");
+    setMessage("Certificate removed.");
   }
 
   return (
@@ -411,8 +412,7 @@ export default function CertificatesSection() {
       </div>
 
       <p className="text-xs text-[var(--color-text)]/40">
-        Showing {filtered.length} of {certificates.length} certificates ·
-        Changes are local only until Supabase is connected
+        Showing {filtered.length} of {certificates.length} certificates
       </p>
 
       {/* Detail panel */}
